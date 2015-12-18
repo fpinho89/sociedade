@@ -20,7 +20,7 @@ class UsuarioController {
             flash.message = "Bem vindo, ${user.login}!"
             redirect controller: "aluno", action:"index", method:"GET"
         } else {
-            flash.message = "Acesso Negado!"
+            flash.error = "Acesso Negado!"
             redirect action:"index"
         }
     }    

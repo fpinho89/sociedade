@@ -13,6 +13,10 @@ class AlunoController {
         respond Aluno.list(params), model:[alunoCount: Aluno.count()]
     }
 
+    def buscaIndex2 (){
+        render(view: "buscaIndex2")
+    }
+
     def show(Aluno aluno) {
         respond aluno
     }
@@ -93,6 +97,17 @@ class AlunoController {
             }
             '*'{ render status: NO_CONTENT }
         }
+    }
+
+    def buscar () {
+        def nomeBuscado = params.nomeBuscado
+        def alunos = Aluno.findAllByNomeOrSobrenome(nomeBuscado, nomeBuscado)
+
+        if (!alunos) {
+            flash.message = "Não foram encontrados alunos"
+        }
+
+        render(view: 'index', model: [alunoList:alunos])
     }
 
     protected void notFound() {
